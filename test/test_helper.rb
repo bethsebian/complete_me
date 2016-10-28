@@ -1,4 +1,4 @@
 require 'minitest/autorun'
 require './lib/node'
-require './lib/trie'
+require './lib/complete_me'
 require 'pry'
