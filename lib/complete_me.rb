@@ -7,16 +7,28 @@ class CompleteMe
   end
 
   def insert(word)
-    @count += 1 unless duplicate(word)
-    @root.load_word(word)
+    @count += 1 unless duplicate?(root, word)
+    load_word(root, word)
   end
 
-  def duplicate(word)
-    children = root.children
-    while children[word[0]]
-      children = children[word[0]].children
-      word     = word[1..-1]
+  def load_word(node, word)
+    node.children[word[0]] = Node.new              unless node.children[word[0]]
+    set_word_indicator(node, word)                 if     end_of_word?(word)
+    load_word(node.children[word[0]], word[1..-1]) unless end_of_word?(word)
+  end
+
+  def set_word_indicator(node, word)
+    node.children[word[0]].word_indicator = true
+  end
+
+  def end_of_word?(word)
+    word.length == 1
+  end
+
+  def duplicate?(current, word)
+    while current.children[word[0]]
+      current, word = current.children[word[0]], word[1..-1]
     end
-    word == ""
+    word == "" && current.word_indicator
   end
 end

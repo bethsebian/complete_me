@@ -49,10 +49,11 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_it_identifies_duplicate
-    refute cm.duplicate("at")
+    refute cm.duplicate?(cm.root, "attribute")
 
-    cm.insert("at")
+    cm.insert("attribute")
 
-    assert cm.duplicate("at")
+    assert cm.duplicate?(cm.root, "attribute")
+    refute cm.duplicate?(cm.root, "attri")
   end
 end
