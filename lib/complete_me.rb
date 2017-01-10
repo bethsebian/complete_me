@@ -1,3 +1,5 @@
+require './lib/node'
+
 class CompleteMe
   attr_reader :root, :count
 
@@ -30,5 +32,28 @@ class CompleteMe
       current, word = current.children[word[0]], word[1..-1]
     end
     word == "" && current.word_indicator
+  end
+
+  def suggest(fragment)
+    last_node = last_node(fragment)
+    @words = []
+    find_all_words(fragment, last_node)
+    @words
+  end
+
+  def last_node(fragment)
+    current = root
+    while current.children[fragment[0]]
+      current, fragment = current.children[fragment[0]], fragment[1..-1]
+    end
+    current
+  end
+
+  def find_all_words(fragment, last_node)
+    last_node.children.each do |letter, child_node|
+      fragment += letter
+      @words << fragment if child_node.word_indicator
+      find_all_words(fragment, child_node)
+    end
   end
 end

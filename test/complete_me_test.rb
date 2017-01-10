@@ -56,4 +56,11 @@ class CompleteMeTest < Minitest::Test
     assert cm.duplicate?(cm.root, "attribute")
     refute cm.duplicate?(cm.root, "attri")
   end
+
+  def test_it_suggests_words
+    cm.insert("pizza")
+    cm.insert("pizzario")
+
+    assert_equal ["pizza", "pizzario"], cm.suggest("piz")
+  end
 end
