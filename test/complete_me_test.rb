@@ -37,4 +37,22 @@ class CompleteMeTest < Minitest::Test
 
     assert_equal 2, cm.count
   end
+
+  def test_it_does_not_double_count_duplicate_words_inserted
+    cm.insert("at")
+    cm.insert("ad")
+    cm.insert("carrot")
+    cm.insert("carrots")
+    cm.insert("banana")
+
+    assert_equal 5, cm.count
+  end
+
+  def test_it_identifies_duplicate
+    refute cm.duplicate("at")
+
+    cm.insert("at")
+
+    assert cm.duplicate("at")
+  end
 end

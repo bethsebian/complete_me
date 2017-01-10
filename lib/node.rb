@@ -24,12 +24,4 @@ class Node
     word[0]
   end
 
-  def duplicate?(word)
-    children = @children
-    while children[first_letter(word)]
-      children, word = children[word[0]].children, word[1..-1]
-    end
-    word == ""
-  end
-
 end

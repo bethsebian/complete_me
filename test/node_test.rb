@@ -80,14 +80,4 @@ class NodeTest < Minitest::Test
   def test_it_finds_first_letter_of_word
     assert_equal "a", node.first_letter("advice")
   end
-
-  def test_it_identifies_duplicate_word
-    node.load_word("advice")
-    assert node.duplicate?("advice")
-  end
-
-  def test_it_identifies_new_word
-    node.load_word("advice")
-    refute node.duplicate?("advocate")
-  end
 end
